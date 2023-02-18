@@ -1,5 +1,6 @@
 import { useFonts } from "expo-font";
 import { StyleSheet } from "react-native";
+import { Provider } from "react-native-paper";
 import LoginScreen from "./screens/AuthScreens/LoginScreen";
 import PreferencesScreen from "./screens/AuthScreens/PreferencesScreen";
 import RegisterScreen from "./screens/AuthScreens/RegisterScreen";
@@ -12,7 +13,12 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
-  return <PreferencesScreen />;
+  // !!!!!! PROVIDER TAG HAS TO BE THERE
+  return (
+    <Provider>
+      <PreferencesScreen />
+    </Provider>
+  );
 }
 
 const styles = StyleSheet.create({
