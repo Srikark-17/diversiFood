@@ -1,4 +1,10 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
 import Card from "../../components/Card";
 import {
@@ -15,17 +21,20 @@ const DashboardScreen = () => {
         <FontAwesome name="search" size={20} style={styles.searchIcon} />
         <TextInput placeholder="Search" style={styles.textInput} />
       </View>
-      <View style={styles.categoryContainer}>
-        <Text style={styles.category}>Italian</Text>
-        <Card
-          name={"Chicken Soup"}
-          description={"Noodles with Chicken"}
-          image={
-            "https://plus.unsplash.com/premium_photo-1674654419438-3720f0b71087?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
-          }
-          prepTime={"2 hrs"}
-        />
-      </View>
+      {/* TODO: Make this redirect to recipescreen with the necessary information needed */}
+      <TouchableOpacity activeOpacity={1}>
+        <View style={styles.categoryContainer}>
+          <Text style={styles.category}>Italian</Text>
+          <Card
+            name={"Chicken Soup"}
+            description={"Noodles with Chicken"}
+            image={
+              "https://plus.unsplash.com/premium_photo-1674654419438-3720f0b71087?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+            }
+            prepTime={"2 hrs"}
+          />
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };

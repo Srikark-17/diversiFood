@@ -6,6 +6,8 @@ import PreferencesScreen from "./screens/AuthScreens/PreferencesScreen";
 import RegisterScreen from "./screens/AuthScreens/RegisterScreen";
 import SplashScreen from "./screens/AuthScreens/SplashScreen";
 import DashboardScreen from "./screens/MainScreens/DashboardScreen";
+import ProfileScreen from "./screens/MainScreens/ProfileScreen";
+import ResultsScreen from "./screens/MainScreens/ResultsScreen";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -14,11 +16,11 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
-  // !!!!!! PROVIDER TAG HAS TO BE AROUND THE APP RENDERING
+  // !!!!!! PROVIDER TAG HAS TO BE AROUND PREFERENCES SCREEN
   return (
-    <Provider>
-      <DashboardScreen />
-    </Provider>
+    // <Provider>
+    <ResultsScreen />
+    // {/* </Provider> */}
   );
 }
 

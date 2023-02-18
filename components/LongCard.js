@@ -4,25 +4,34 @@ import {
   widthPercentageToDP as WP,
   heightPercentageToDP as HP,
 } from "react-native-responsive-screen";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-const LongCard = () => {
+const LongCard = ({ name, description, image, prepTime }) => {
   return (
     <View style={styles.foodContainer}>
-      <TouchableOpacity onPress={() => auth.signOut()}>
+      <TouchableOpacity>
         <View style={styles.individualFoodContainer}>
           <Image
             source={{
-              uri: "https://plus.unsplash.com/premium_photo-1674654419438-3720f0b71087?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
+              uri: image,
             }}
             style={styles.individualFoodImage}
           />
 
           <View style={styles.foodTextContainer}>
             <View>
-              <Text style={styles.placeName}>Chicken soup</Text>
+              <Text style={styles.placeName}>{name}</Text>
               <Text numberOfLines={1} style={styles.foodItem}>
-                HI{" "}
+                {description}
               </Text>
+            </View>
+            <View>
+              <MaterialCommunityIcons
+                name="clock-time-eight-outline"
+                size={25}
+                style={styles.timeIcon}
+              />
+              <Text>{prepTime}</Text>
             </View>
           </View>
         </View>
@@ -35,7 +44,7 @@ export default LongCard;
 
 const styles = StyleSheet.create({
   individualFoodContainer: {
-    width: WP(39.13),
+    width: WP(80),
     height: HP(16.29),
     borderRadius: 12,
     marginLeft: WP(2.42),
@@ -53,7 +62,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   individualFoodImage: {
-    width: WP(39.13),
+    width: WP(80),
     height: HP(10.04),
     alignSelf: "center",
     borderTopLeftRadius: 12,
