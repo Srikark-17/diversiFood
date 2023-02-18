@@ -25,7 +25,7 @@ const LongCard = ({ name, description, image, prepTime }) => {
                 {description}
               </Text>
             </View>
-            <View>
+            <View style={{ right: WP(4), bottom: HP(0.5) }}>
               <MaterialCommunityIcons
                 name="clock-time-eight-outline"
                 size={25}
@@ -85,6 +85,6 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins",
     fontSize: HP(1.45),
     lineHeight: HP(1.9),
-    width: WP(25),
+    width: WP(65),
   },
 });

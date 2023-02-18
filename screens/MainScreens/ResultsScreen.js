@@ -12,7 +12,7 @@ import {
 } from "react-native-responsive-screen";
 import LongCard from "../../components/LongCard";
 
-const PreferencesScreen = ({ name, description, image, prepTime }) => {
+const ResultsScreen = ({ name, description, image, prepTime }) => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
@@ -31,7 +31,7 @@ const PreferencesScreen = ({ name, description, image, prepTime }) => {
   );
 };
 
-export default PreferencesScreen;
+export default ResultsScreen;
 
 const styles = StyleSheet.create({
   container: {
