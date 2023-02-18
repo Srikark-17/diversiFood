@@ -18,14 +18,14 @@ function LoginScreen() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  const handleSubmit = () => {
-    auth.signInWithEmailAndPassword(email, password);
-    auth.onAuthStateChanged(function (user) {
-      if (user) {
-        // TODO: navigate to dashboard
-      }
-    });
-  };
+  // const handleSubmit = () => {
+  //   auth.signInWithEmailAndPassword(email, password);
+  //   auth.onAuthStateChanged(function (user) {
+  //     if (user) {
+  //       // TODO: navigate to dashboard
+  //     }
+  //   });
+  // };
 
   return (
     <View style={styles.container}>
@@ -61,16 +61,15 @@ function LoginScreen() {
           </View>
         </View>
         <TouchableOpacity activeOpacity={1} onPress={() => handleSubmit()}>
-          <View style={styles.loginButton}>
-            <Text style={styles.loginButtonText}>Login</Text>
+          <View style={styles.registerButton}>
+            <Text style={styles.registerButtonText}>Login</Text>
           </View>
         </TouchableOpacity>
-        <StatusBar barStyle="light-content" />
         <View style={styles.haveAccountContainer}>
           <Text style={styles.haveAccountText}>Don't have an account?</Text>
           {/* TODO: add navigation register */}
           <TouchableOpacity activeOpacity={1}>
-            <Text style={styles.loginText}>Register</Text>
+            <Text style={styles.registerText}>Register</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -80,7 +79,6 @@ function LoginScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fff",
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -117,7 +115,7 @@ const styles = StyleSheet.create({
     height: HP(5),
     fontFamily: "Poppins",
   },
-  loginButton: {
+  registerButton: {
     borderRadius: 12,
     backgroundColor: "#E35F21",
     height: HP(7),
@@ -128,7 +126,7 @@ const styles = StyleSheet.create({
     top: HP(4),
     justifyContent: "center",
   },
-  loginButtonText: {
+  registerButtonText: {
     fontSize: HP(2.2),
     color: "#fff",
     fontWeight: "bold",
@@ -145,7 +143,7 @@ const styles = StyleSheet.create({
     fontSize: HP(1.7),
     fontFamily: "Poppins",
   },
-  loginText: {
+  registerText: {
     color: "#E35F21",
     paddingLeft: WP(1),
     fontSize: HP(1.7),

@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   StatusBar,
   Text,
-  Alert,
 } from "react-native";
 import {
   widthPercentageToDP as WP,
@@ -20,21 +19,21 @@ function RegisterScreen() {
   const [password, setPassword] = useState();
   const [fullName, setFullName] = useState();
 
-  const handleSubmit = () => {
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        return auth.currentUser.updateProfile({
-          displayName: fullName,
-        });
-      })
-      .catch((error) => Alert.alert(`${error}`));
-    auth.onAuthStateChanged(function (user) {
-      if (user) {
-        // TODO: add navigation to Preferences Screen
-      }
-    });
-  };
+  // const handleSubmit = () => {
+  //   auth
+  //     .createUserWithEmailAndPassword(email, password)
+  //     .then(() => {
+  //       return auth.currentUser.updateProfile({
+  //         displayName: fullName,
+  //       });
+  //     })
+  //     .catch((error) => Alert.alert(`${error}`));
+  //   auth.onAuthStateChanged(function (user) {
+  //     if (user) {
+  //       // TODO: add navigation to Preferences Screen
+  //     }
+  //   });
+  // };
 
   return (
     <View style={styles.container}>
@@ -84,7 +83,6 @@ function RegisterScreen() {
             <Text style={styles.registerButtonText}>Register</Text>
           </View>
         </TouchableOpacity>
-        <StatusBar barStyle="light-content" />
         <View style={styles.haveAccountContainer}>
           <Text style={styles.haveAccountText}>Have an account?</Text>
           {/* TODO: add navigation login */}
@@ -99,7 +97,6 @@ function RegisterScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fff",
     flex: 1,
     justifyContent: "center",
     alignItems: "center",

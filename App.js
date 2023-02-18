@@ -1,6 +1,7 @@
 import { useFonts } from "expo-font";
 import { StyleSheet } from "react-native";
 import LoginScreen from "./screens/AuthScreens/LoginScreen";
+import PreferencesScreen from "./screens/AuthScreens/PreferencesScreen";
 import RegisterScreen from "./screens/AuthScreens/RegisterScreen";
 import SplashScreen from "./screens/AuthScreens/SplashScreen";
 
@@ -11,7 +12,7 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
-  return <LoginScreen />;
+  return <PreferencesScreen />;
 }
 
 const styles = StyleSheet.create({
