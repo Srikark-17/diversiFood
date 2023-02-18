@@ -10,11 +10,9 @@ import {
   widthPercentageToDP as WP,
   heightPercentageToDP as HP,
 } from "react-native-responsive-screen";
-import { Checkbox } from "react-native-paper";
 import { PaperSelect } from "react-native-paper-select";
 
 const PreferencesScreen = () => {
-  const [checked, setChecked] = useState(false);
   const [allergies, setAllergies] = useState({
     value: "",
     list: [
