@@ -5,14 +5,38 @@ import {
   StatusBar,
   TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   widthPercentageToDP as WP,
   heightPercentageToDP as HP,
 } from "react-native-responsive-screen";
 import LongCard from "../../components/LongCard";
 
-const ResultsScreen = ({ name, description, image, prepTime }) => {
+const ResultsScreen = ({ name, description, image, prepTime, route, navigation }) => {
+  const {concatenatedString} = route.params;
+  console.log('concatenated strings')
+  console.log(concatenatedString)
+
+  useEffect(() => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("user_images", `${concatenatedString}`);
+  
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: urlencoded,
+      redirect: 'follow'
+    };
+
+    fetch("http://127.0.0.1:3001/classifier", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  }, [])
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />

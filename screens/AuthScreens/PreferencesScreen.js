@@ -10,9 +10,19 @@ import {
   widthPercentageToDP as WP,
   heightPercentageToDP as HP,
 } from "react-native-responsive-screen";
+import { Provider as PaperProvider } from 'react-native-paper';
 import { PaperSelect } from "react-native-paper-select";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import Firebasekeys from "./../../config";
+let firebaseConfig = Firebasekeys;
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
-const PreferencesScreen = () => {
+const user = firebase.auth().currentUser;
+
+const PreferencesScreen = ({navigation}) => {
   const [allergies, setAllergies] = useState({
     value: "",
     list: [
@@ -43,9 +53,24 @@ const PreferencesScreen = () => {
     selectedList: [],
     error: "",
   });
+
+
+  const uploadText = async() => {
+    firebase.firestore()
+    .collection('Preferences').doc(`${user.uid}`)
+    .set({
+      name: `${user.displayName}`,
+      diets: diets.selectedList,
+      allergies: allergies.selectedList,
+      uid: `${user.uid}`
+    })
+  }
+
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
+      <PaperProvider>
       <View style={styles.alignment}>
         <Text style={styles.heading}>Preferences</Text>
       </View>
@@ -63,6 +88,7 @@ const PreferencesScreen = () => {
       >
         Allergies
       </Text>
+
       <PaperSelect
         label="Select Allergies"
         value={allergies.value}
@@ -106,12 +132,17 @@ const PreferencesScreen = () => {
         searchStyle={{ iconColor: "#E35F21" }}
         dialogButtonLabelStyle={{ color: "#E35F21" }}
       />
+      
       {/* TODO: push all of the user's preferences to firestore */}
-      <TouchableOpacity activeOpacity={1}>
+      <TouchableOpacity activeOpacity={1} onPress={() => {
+        uploadText()
+        navigation.navigate("Dashboard")
+        }}>
         <View style={styles.submitButton}>
           <Text style={styles.submitButtonText}>Continue</Text>
         </View>
       </TouchableOpacity>
+      </PaperProvider>
     </View>
   );
 };
@@ -123,6 +154,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    top: WP(35)
   },
   alignment: {
     alignItems: "flex-start",

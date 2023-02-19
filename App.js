@@ -90,7 +90,23 @@ const OCRRecognitionNavigator = () => {
         name="OCR"
         component={CameraScreen}
         options={{
-          title: "Take A Picture Of Your Ingredients",
+          title: "Take 5 Pictures Of Your Ingredients",
+          headerBackTitleVisible: false,
+        }}
+      />
+      <OCRRecognition.Screen
+        name="Results"
+        component={ResultsScreen}
+        options={{
+          title: "Image Results",
+          headerBackTitleVisible: false,
+        }}
+      />
+      <OCRRecognition.Screen
+        name="Recipe"
+        component={RecipeScreen}
+        options={{
+          title: "Recipe Results",
           headerBackTitleVisible: false,
         }}
       />
@@ -111,8 +127,16 @@ const DashboardNavigator = () => {
           color: "#fff",
         },
       }}
-      initialRouteName="Dashboard"
+      initialRouteName="Preferences"
     >
+      <Dashboard.Screen
+        name="Preferences"
+        component={PreferencesScreen}
+        options={{
+          headerBackTitleVisible: false,
+          headerShown: false,
+        }}
+      />
       <Dashboard.Screen
         name="Dashboard"
         component={DashboardScreen}
@@ -120,6 +144,7 @@ const DashboardNavigator = () => {
           headerBackTitleVisible: false,
         }}
       />
+      
     </Dashboard.Navigator>
   );
 };

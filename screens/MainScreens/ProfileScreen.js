@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
@@ -17,6 +17,7 @@ if (!firebase.apps.length) {
 const user = firebase.auth().currentUser;
 
 const ProfileScreen = () => {
+  const [displayName, setDisplayName] = useState();
   // TODO: replace all hard-coded information with user information
   return (
     <View style={styles.container}>
@@ -28,9 +29,9 @@ const ProfileScreen = () => {
           style={styles.userProfilePhoto}
         />
         <View style={styles.textContainer}>
-          <Text style={styles.username}>{user.displayName}</Text>
+        {(user.displayName ? <Text style={styles.username}>{user.displayName}</Text> : "error")}
           <Text style={styles.username}></Text>
-          <Text style={styles.username}>{user.email}</Text>
+        {(user.email ? <Text style={styles.username}>{user.email}</Text> : "error")}
         </View>
       </View>
       <View>

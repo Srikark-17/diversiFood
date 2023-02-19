@@ -12,8 +12,31 @@ import {
   heightPercentageToDP as HP,
 } from "react-native-responsive-screen";
 
-const RecipeScreen = () => {
+const RecipeScreen = ( route, navigation) => {
   // TODO: Replace all of this information with information from the Tasty API
+
+  const {recipeData} = route.params;
+  
+  console.log(recipeData)
+
+
+  const retrieveRecipeInformation = () => {
+    var myHeaders = new Headers();
+    myHeaders.append("X-RapidAPI-Key", "bb7546689emsh7a73aa4a8d1f5aep1dc21bjsn9fe4f6ac5ef2");
+    myHeaders.append("X-RapidAPI-Host", "tasty.p.rapidapi.com");
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch(`https://tasty.p.rapidapi.com/recipes/get-more-info?id=${recipeData}`, requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  }
+
   return (
     <View style={styles.container}>
       <Image

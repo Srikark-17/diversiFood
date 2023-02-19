@@ -1,3 +1,4 @@
+import React, {useEffect, useState} from 'react'
 import {
   StyleSheet,
   Text,
@@ -6,7 +7,6 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import React from "react";
 import Card from "../../components/Card";
 import {
   widthPercentageToDP as WP,
@@ -15,6 +15,8 @@ import {
 import { FontAwesome } from "@expo/vector-icons";
 
 const DashboardScreen = () => {
+  const [recommendations, setRecommendations] = useState();
+
   const data = [
     {
       id: "1",
@@ -38,18 +40,41 @@ const DashboardScreen = () => {
     },
   ];
 
-  const Category = ({ title }) => (
-    <View>
+  useEffect(() => {
+    const options = {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key': 'bb7546689emsh7a73aa4a8d1f5aep1dc21bjsn9fe4f6ac5ef2',
+        'X-RapidAPI-Host': 'tasty.p.rapidapi.com'
+      }
+    };
+    
+    fetch('https://tasty.p.rapidapi.com/feeds/list?size=5&timezone=%2B0700&vegetarian=false&peanut=false&from=0', options)
+      .then(response => response.json())
+      .then((data) => {
+        console.log('before')
+        setRecommendations(data.results[0].item.compilations)
+        console.log('after')
+        console.log(data.results[0].item.compilations[0])
+      })
+      .catch(err => console.error(err));
+  }, [])
+  const Category = ({ title, description, image, country, id }) => (
+    <View onPress={() => navigation.navigate("Recipe", {
+      recipeData: id,
+    })}>
       <Text style={styles.category}>{title}</Text>
       {/* TODO: Make this redirect to recipescreen with the necessary information needed */}
-      <TouchableOpacity activeOpacity={1}>
+      <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate("Recipe", {
+          recipeData: id,
+        })}>
         <Card
-          name={"Chicken Soup"}
-          description={"Noodles with Chicken"}
+          name={title}
+          description={description}
           image={
-            "https://plus.unsplash.com/premium_photo-1674654419438-3720f0b71087?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+            `${image}`
           }
-          prepTime={"2 hrs"}
+          country={country}
         />
       </TouchableOpacity>
     </View>
@@ -58,12 +83,12 @@ const DashboardScreen = () => {
     <View style={styles.container}>
       <View style={styles.searchContainer}>
         <FontAwesome name="search" size={20} style={styles.searchIcon} />
-        <TextInput placeholder="Search" style={styles.textInput} />
+        <TextInput placeholder="Search" style={styles.textInput}/>
       </View>
       <FlatList
-        data={data}
-        renderItem={({ item }) => <Category title={item.title} />}
-        keyExtractor={(item) => item.id}
+        data={recommendations}
+        renderItem={({ item }) => <Category title={item.name}  image={item.thumbnail_url} data={item} country={item.country} />} //  description={item.item.compilations[0].description} 
+        keyExtractor={(item) => item.show_id}
         style={{ width: WP(96), left: WP(4) }}
       />
     </View>
@@ -76,14 +101,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "flex-start",
-    justifyContent: "flex-start",
+    alignSelf: "center",
+    alignItems: "center",
+    left: WP(8),
   },
   searchContainer: {
     flexDirection: "row",
     width: WP(81),
     height: HP(5.6),
-    left: WP(1),
     borderWidth: 1,
+    left: WP(-8),
     borderColor: "#aeaeae",
     borderStyle: "solid",
     borderRadius: 12,
