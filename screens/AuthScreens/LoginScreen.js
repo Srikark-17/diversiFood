@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins",
   },
   textColor: {
-    color: "#ccc",
+    color: "#5A5A5A",
     width: WP(80),
     height: HP(5),
     fontFamily: "Poppins",
