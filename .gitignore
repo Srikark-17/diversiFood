@@ -10,5 +10,7 @@ npm-debug.*
 *.orig.*
 web-build/
 
+pythonBackend/data
+
 # macOS
 .DS_Store
