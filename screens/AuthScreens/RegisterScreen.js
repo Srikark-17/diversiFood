@@ -11,29 +11,38 @@ import {
   widthPercentageToDP as WP,
   heightPercentageToDP as HP,
 } from "react-native-responsive-screen";
-import { auth } from "../../firebase";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import Firebasekeys from "./../../config";
+let firebaseConfig = Firebasekeys;
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
-function RegisterScreen() {
+function RegisterScreen({ navigation }) {
   // TODO: add google login
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [fullName, setFullName] = useState();
 
-  // const handleSubmit = () => {
-  //   auth
-  //     .createUserWithEmailAndPassword(email, password)
-  //     .then(() => {
-  //       return auth.currentUser.updateProfile({
-  //         displayName: fullName,
-  //       });
-  //     })
-  //     .catch((error) => Alert.alert(`${error}`));
-  //   auth.onAuthStateChanged(function (user) {
-  //     if (user) {
-  //       // TODO: add navigation to Preferences Screen
-  //     }
-  //   });
-  // };
+  const handleSubmit = () => {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((userCredentials) => {
+        return userCredentials.user.updateProfile({
+          displayName: fullName,
+        });
+      })
+      .catch((error) => console.log(error));
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        console.log("user is signed in");
+      } else {
+        console.log("user is not signed in");
+      }
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -86,7 +95,10 @@ function RegisterScreen() {
         <View style={styles.haveAccountContainer}>
           <Text style={styles.haveAccountText}>Have an account?</Text>
           {/* TODO: add navigation login */}
-          <TouchableOpacity activeOpacity={1}>
+          <TouchableOpacity
+            activeOpacity={1}
+            onPress={() => navigation.navigate("Login")}
+          >
             <Text style={styles.loginText}>Login</Text>
           </TouchableOpacity>
         </View>
@@ -109,7 +121,6 @@ const styles = StyleSheet.create({
     fontSize: HP(6.5),
     fontWeight: "bold",
     color: "#000",
-    fontFamily: "Poppins",
   },
   formContainer: {
     paddingHorizontal: WP(8),
@@ -125,13 +136,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#aeaeae",
     marginTop: HP(1),
-    fontFamily: "Poppins",
   },
   textColor: {
-    color: "#ccc",
+    color: "#5A5A5A",
     width: WP(80),
     height: HP(5),
-    fontFamily: "Poppins",
   },
   registerButton: {
     borderRadius: 12,
@@ -148,7 +157,6 @@ const styles = StyleSheet.create({
     fontSize: HP(2.2),
     color: "#fff",
     fontWeight: "bold",
-    fontFamily: "Poppins",
   },
   haveAccountContainer: {
     flexDirection: "row",
@@ -159,7 +167,6 @@ const styles = StyleSheet.create({
   haveAccountText: {
     color: "#000",
     fontSize: HP(1.7),
-    fontFamily: "Poppins",
   },
   loginText: {
     color: "#E35F21",

@@ -11,21 +11,36 @@ import {
   widthPercentageToDP as WP,
   heightPercentageToDP as HP,
 } from "react-native-responsive-screen";
-import { auth } from "../../firebase";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import Firebasekeys from "./../../config";
+let firebaseConfig = Firebasekeys;
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
-function LoginScreen() {
+function LoginScreen({ navigation }) {
   // TODO: add google login
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  // const handleSubmit = () => {
-  //   auth.signInWithEmailAndPassword(email, password);
-  //   auth.onAuthStateChanged(function (user) {
-  //     if (user) {
-  //       // TODO: navigate to dashboard
-  //     }
-  //   });
-  // };
+  const handleSubmit = () => {
+    try {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .catch((error) => console.log(error));
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          console.log("Signed in!");
+        } else {
+          console.log("Not Signed in!");
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -68,7 +83,10 @@ function LoginScreen() {
         <View style={styles.haveAccountContainer}>
           <Text style={styles.haveAccountText}>Don't have an account?</Text>
           {/* TODO: add navigation register */}
-          <TouchableOpacity activeOpacity={1}>
+          <TouchableOpacity
+            activeOpacity={1}
+            onPress={() => navigation.navigate("Register")}
+          >
             <Text style={styles.registerText}>Register</Text>
           </TouchableOpacity>
         </View>
@@ -91,7 +109,6 @@ const styles = StyleSheet.create({
     fontSize: HP(6.5),
     fontWeight: "bold",
     color: "#000",
-    fontFamily: "Poppins",
   },
   formContainer: {
     paddingHorizontal: WP(8),
@@ -107,13 +124,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#aeaeae",
     marginTop: HP(1),
-    fontFamily: "Poppins",
   },
   textColor: {
-    color: "#ccc",
+    color: "#5A5A5A",
     width: WP(80),
     height: HP(5),
-    fontFamily: "Poppins",
   },
   registerButton: {
     borderRadius: 12,
@@ -130,7 +145,6 @@ const styles = StyleSheet.create({
     fontSize: HP(2.2),
     color: "#fff",
     fontWeight: "bold",
-    fontFamily: "Poppins",
   },
   haveAccountContainer: {
     flexDirection: "row",
@@ -141,7 +155,6 @@ const styles = StyleSheet.create({
   haveAccountText: {
     color: "#000",
     fontSize: HP(1.7),
-    fontFamily: "Poppins",
   },
   registerText: {
     color: "#E35F21",
