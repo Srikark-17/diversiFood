@@ -45,7 +45,6 @@ const styles = StyleSheet.create({
     marginTop: HP(5.58),
   },
   title: {
-    fontFamily: "Poppins",
     fontWeight: "700",
     fontSize: HP(3.13),
     top: HP(2.23),
@@ -72,12 +71,10 @@ const styles = StyleSheet.create({
     marginLeft: WP(4.83),
   },
   username: {
-    fontFamily: "Poppins",
     fontSize: HP(2),
     color: "#fff",
   },
   personalInfoText: {
-    fontFamily: "Poppins",
     fontSize: HP(1.56),
     color: "#fff",
   },
@@ -92,7 +89,6 @@ const styles = StyleSheet.create({
     marginTop: HP(1.67),
   },
   editText: {
-    fontFamily: "Poppins",
     color: "#E35F21",
     fontSize: HP(1.56),
   },
@@ -111,7 +107,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   profileSectionText: {
-    fontFamily: "Poppins",
     fontSize: HP(1.9),
     marginLeft: WP(4.83),
   },

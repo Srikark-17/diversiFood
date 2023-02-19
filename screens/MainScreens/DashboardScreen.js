@@ -109,14 +109,12 @@ const styles = StyleSheet.create({
     width: WP(63),
   },
   heading: {
-    fontFamily: "Poppins",
     fontWeight: "bold",
     fontSize: HP(3),
     bottom: HP(23),
     right: WP(20),
   },
   category: {
-    fontFamily: "Poppins",
     fontWeight: "600",
     fontSize: HP(2.3),
   },

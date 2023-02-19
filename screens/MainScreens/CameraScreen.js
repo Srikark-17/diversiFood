@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
     top: HP(53),
   },
   submitButtonText: {
-    fontFamily: "Poppins",
     color: "#fff",
   },
 });

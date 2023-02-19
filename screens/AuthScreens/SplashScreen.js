@@ -12,7 +12,7 @@ import {
   heightPercentageToDP as HP,
 } from "react-native-responsive-screen";
 
-function SplashScreen({navigation}) {
+function SplashScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
@@ -24,14 +24,22 @@ function SplashScreen({navigation}) {
         Providing personal, nutritious, and diverse meal recommendations
       </Text>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.registerButton} activeOpacity={1} onPress={() => {
-          navigation.navigate("Register")
-        }}>
+        <TouchableOpacity
+          style={styles.registerButton}
+          activeOpacity={1}
+          onPress={() => {
+            navigation.navigate("Register");
+          }}
+        >
           <Text style={styles.registerText}>Register</Text>
         </TouchableOpacity>
-        <TouchableOpacity activeOpacity={1} style={styles.loginButton} onPress={() => {
-          navigation.navigate("Login")
-        }}>
+        <TouchableOpacity
+          activeOpacity={1}
+          style={styles.loginButton}
+          onPress={() => {
+            navigation.navigate("Login");
+          }}
+        >
           <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
       </View>
@@ -52,7 +60,6 @@ const styles = StyleSheet.create({
   },
   description: {
     color: "black",
-    fontFamily: "Poppins",
     fontSize: HP(2),
     textAlign: "center",
     width: WP(80),
@@ -74,7 +81,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
   },
   registerText: {
-    fontFamily: "Poppins",
     fontSize: HP(2.13),
     textAlign: "center",
     color: "white",
@@ -93,7 +99,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
   },
   loginText: {
-    fontFamily: "Poppins",
     fontSize: HP(2.13),
     textAlign: "center",
     color: "white",

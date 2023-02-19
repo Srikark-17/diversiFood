@@ -76,13 +76,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   placeName: {
-    fontFamily: "Poppins",
     fontSize: HP(1.56),
     lineHeight: HP(2),
   },
   foodItem: {
     color: "#aeaeae",
-    fontFamily: "Poppins",
     fontSize: HP(1.45),
     lineHeight: HP(1.9),
     width: WP(65),

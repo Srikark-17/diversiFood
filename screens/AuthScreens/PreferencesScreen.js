@@ -55,7 +55,6 @@ const PreferencesScreen = () => {
       </Text>
       <Text
         style={{
-          fontFamily: "Poppins",
           fontWeight: "600",
           fontSize: HP(2.3),
           marginVertical: HP(1),
@@ -132,19 +131,16 @@ const styles = StyleSheet.create({
     bottom: HP(8),
   },
   heading: {
-    fontFamily: "Poppins",
     fontWeight: "bold",
     fontSize: HP(3),
   },
   subheading: {
-    fontFamily: "Poppins",
     fontSize: HP(1.7),
     bottom: HP(8),
     color: "#E35F21",
     width: WP(80),
   },
   category: {
-    fontFamily: "Poppins",
     fontWeight: "600",
     fontSize: HP(2.3),
     marginVertical: HP(1),
@@ -168,6 +164,5 @@ const styles = StyleSheet.create({
     fontSize: HP(2.2),
     color: "#fff",
     fontWeight: "bold",
-    fontFamily: "Poppins",
   },
 });
