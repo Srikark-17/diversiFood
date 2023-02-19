@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     marginLeft: WP(2.5),
     justifyContent: "flex-start",
     marginBottom: HP(1),
-    backgroundColor: "#edf0ee",
+    backgroundColor: "#FAF9F6",
   },
   individualFoodContainerList: {
     width: WP(80),
