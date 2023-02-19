@@ -8,11 +8,11 @@ import {
 
 const CameraScreen = () => {
   let camera = null;
-  const photos = [];
+  const string = "";
   const __takePicture = async () => {
     const photo = await camera.takePictureAsync({ base64: true });
     // each base64 string
-    photos.push("data:image/jpg;base64," + photo.base64);
+    string += "data:image/jpg;base64," + photo.base64 + "-";
   };
   const submit = () => {
     // code for submitting array to api
