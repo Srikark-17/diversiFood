@@ -122,7 +122,7 @@ function MainNavigator() {
   return (
     <NavigationContainer>
       <Main.Navigator
-        initialRouteName="Dashboard"
+        initialRouteName="Dashboard Navigator"
         sceneAnimationEnabled="true"
         activeColor={tabcolor}
         inactiveColor={inactiveColor}
@@ -132,7 +132,7 @@ function MainNavigator() {
         shifting={false}
       >
         <Main.Screen
-          name="Dashboard"
+          name="Dashboard Navigator"
           component={DashboardNavigator}
           options={{
             tabBarIcon: ({ focused }) => (
@@ -158,7 +158,7 @@ function MainNavigator() {
           }}
         />
         <Main.Screen
-          name="Profile"
+          name="Profile Navigator"
           component={ProfileNavigator}
           options={{
             tabBarIcon: ({ focused }) => (
