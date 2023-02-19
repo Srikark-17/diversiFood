@@ -9,12 +9,12 @@ import DashboardScreen from "./screens/MainScreens/DashboardScreen";
 import ProfileScreen from "./screens/MainScreens/ProfileScreen";
 import ResultsScreen from "./screens/MainScreens/ResultsScreen";
 import RecipeScreen from "./screens/MainScreens/RecipeScreen";
-import CameraScreen from './screens/MainScreens/CameraScreen'
+import CameraScreen from "./screens/MainScreens/CameraScreen";
 
 import {
   MaterialCommunityIcons,
   FontAwesome5,
-  Ionicons
+  Ionicons,
 } from "@expo/vector-icons";
 
 import { NavigationContainer } from "@react-navigation/native";
@@ -22,7 +22,13 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+} from "firebase/auth";
+import { heightPercentageToDP } from "react-native-responsive-screen";
 
 const Main = createMaterialBottomTabNavigator();
 const Auth = createStackNavigator();
@@ -116,27 +122,32 @@ function MainNavigator() {
   return (
     <NavigationContainer>
       <Main.Navigator
-        initialRouteName="Dashboard Navigator"
+        initialRouteName="Dashboard"
+        sceneAnimationEnabled="true"
         activeColor={tabcolor}
         inactiveColor={inactiveColor}
-        barStyle={{ backgroundColor: `${themecolor}`}}
-        shifting={false}
+        barStyle={{
+          backgroundColor: `${themecolor}`,
+        }}
+        // shifting={true}
       >
         <Main.Screen
-          name="Dashboard Navigator"
+          name="Dashboard"
           component={DashboardNavigator}
           options={{
             tabBarIcon: ({ focused }) => (
               <MaterialCommunityIcons
                 name="view-dashboard-variant"
                 size={26}
-                color={focused ? tabcolor : inactiveColor}
+                // color={focused ? tabcolor : inactiveColor}
               />
             ),
+            tabBarActiveTintColor: "tomato",
+            tabBarInactiveTintColor: "gray",
           }}
         />
         <Main.Screen
-          name="OCR Navigator"
+          name="Camera"
           component={OCRRecognitionNavigator}
           options={{
             tabBarIcon: ({ focused }) => (
@@ -149,7 +160,7 @@ function MainNavigator() {
           }}
         />
         <Main.Screen
-          name="Profile Navigator"
+          name="Profile"
           component={ProfileNavigator}
           options={{
             tabBarIcon: ({ focused }) => (
@@ -163,7 +174,7 @@ function MainNavigator() {
         />
       </Main.Navigator>
     </NavigationContainer>
-  )
+  );
 }
 
 function AuthNavigator() {
@@ -180,7 +191,7 @@ function AuthNavigator() {
         <Auth.Screen name="Register" component={RegisterScreen} options={{}} />
       </Auth.Navigator>
     </NavigationContainer>
-  )
+  );
 }
 
 export default function App() {
@@ -197,14 +208,13 @@ export default function App() {
   //   // {/* </Provider> */}
   // );
 
-  let user = true
+  let user = true;
 
   if (!user) {
-    return <AuthNavigator/>
+    return <AuthNavigator />;
   }
 
-  return <MainNavigator/>
-
+  return <MainNavigator />;
 }
 
 const styles = StyleSheet.create({

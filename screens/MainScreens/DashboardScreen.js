@@ -1,9 +1,10 @@
 import {
   StyleSheet,
   Text,
-  TextInput,
+  FlatList,
   View,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
 import React from "react";
 import Card from "../../components/Card";
@@ -14,27 +15,58 @@ import {
 import { FontAwesome } from "@expo/vector-icons";
 
 const DashboardScreen = () => {
+  const data = [
+    {
+      id: "1",
+      title: "Recommended For You",
+    },
+    {
+      id: "2",
+      title: "Italian",
+    },
+    {
+      id: "3",
+      title: "Chinese",
+    },
+    {
+      id: "4",
+      title: "Mexican",
+    },
+    {
+      id: "5",
+      title: "Indian",
+    },
+  ];
+
+  const Category = ({ title }) => (
+    <View>
+      {/* basically just get food based on preferences */}
+      <Text style={styles.category}>{title}</Text>
+      {/* TODO: Make this redirect to recipescreen with the necessary information needed */}
+      <TouchableOpacity activeOpacity={1}>
+        <Card
+          name={"Chicken Soup"}
+          description={"Noodles with Chicken"}
+          image={
+            "https://plus.unsplash.com/premium_photo-1674654419438-3720f0b71087?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+          }
+          prepTime={"2 hrs"}
+        />
+      </TouchableOpacity>
+    </View>
+  );
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Dashboard</Text>
       <View style={styles.searchContainer}>
         <FontAwesome name="search" size={20} style={styles.searchIcon} />
         <TextInput placeholder="Search" style={styles.textInput} />
       </View>
-      {/* TODO: Make this redirect to recipescreen with the necessary information needed */}
-      <TouchableOpacity activeOpacity={1}>
-        <View style={styles.categoryContainer}>
-          <Text style={styles.category}>Italian</Text>
-          <Card
-            name={"Chicken Soup"}
-            description={"Noodles with Chicken"}
-            image={
-              "https://plus.unsplash.com/premium_photo-1674654419438-3720f0b71087?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
-            }
-            prepTime={"2 hrs"}
-          />
-        </View>
-      </TouchableOpacity>
+      <FlatList
+        data={data}
+        renderItem={({ item }) => <Category title={item.title} />}
+        keyExtractor={(item) => item.id}
+        style={{ width: WP(96), left: WP(4) }}
+      />
     </View>
   );
 };
@@ -44,8 +76,8 @@ export default DashboardScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
   },
   searchContainer: {
     flexDirection: "row",
@@ -59,7 +91,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     alignItems: "center",
     backgroundColor: "#fff",
-    bottom: HP(22),
+    marginVertical: HP(2),
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -84,14 +116,9 @@ const styles = StyleSheet.create({
     bottom: HP(23),
     right: WP(20),
   },
-  categoryContainer: {
-    right: WP(7),
-    bottom: HP(20),
-  },
   category: {
     fontFamily: "Poppins",
     fontWeight: "600",
     fontSize: HP(2.3),
-    marginVertical: HP(1),
   },
 });
