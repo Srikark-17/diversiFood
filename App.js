@@ -1,3 +1,4 @@
+import React, {useEffect, useState} from 'react'
 import { useFonts } from "expo-font";
 import { StyleSheet } from "react-native";
 import { Provider } from "react-native-paper";
@@ -17,17 +18,21 @@ import {
   Ionicons,
 } from "@expo/vector-icons";
 
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+
+import Firebasekeys from './config'
+let firebaseConfig = Firebasekeys;
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-} from "firebase/auth";
 import { heightPercentageToDP } from "react-native-responsive-screen";
 
 const Main = createMaterialBottomTabNavigator();
@@ -193,20 +198,21 @@ function AuthNavigator() {
 }
 
 export default function App() {
-  const [fontsLoaded] = useFonts({
-    Poppins: require("./assets/fonts/Poppins/Poppins-Medium.ttf"),
-  });
-  if (!fontsLoaded) {
-    return null;
-  }
-  // !!!!!! PROVIDER TAG HAS TO BE AROUND PREFERENCES SCREEN
-  // return (
-  //   // <Provider>
-  //   <RecipeScreen />
-  //   // {/* </Provider> */}
-  // );
+  
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState(); // Handle user state changes
 
-  let user = true;
+  function onAuthStateChanged(user) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
+
+  useEffect(() => {
+    const subscriber = firebase.auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
+  if (initializing) return null;
 
   if (!user) {
     return <AuthNavigator />;

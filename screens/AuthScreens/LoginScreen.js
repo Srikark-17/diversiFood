@@ -11,21 +11,37 @@ import {
   widthPercentageToDP as WP,
   heightPercentageToDP as HP,
 } from "react-native-responsive-screen";
-import { auth } from "../../firebase";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import Firebasekeys from './../../config'
+let firebaseConfig = Firebasekeys;
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
-function LoginScreen() {
+
+function LoginScreen({navigation}) {
   // TODO: add google login
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  // const handleSubmit = () => {
-  //   auth.signInWithEmailAndPassword(email, password);
-  //   auth.onAuthStateChanged(function (user) {
-  //     if (user) {
-  //       // TODO: navigate to dashboard
-  //     }
-  //   });
-  // };
+  const handleSubmit = () => {
+    try {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .catch((error) => console.log(error));
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          console.log("Signed in!");
+        } else {
+          console.log("Not Signed in!");
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -68,7 +84,7 @@ function LoginScreen() {
         <View style={styles.haveAccountContainer}>
           <Text style={styles.haveAccountText}>Don't have an account?</Text>
           {/* TODO: add navigation register */}
-          <TouchableOpacity activeOpacity={1}>
+          <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('Register')}>
             <Text style={styles.registerText}>Register</Text>
           </TouchableOpacity>
         </View>
