@@ -20,7 +20,7 @@ if (!firebase.apps.length) {
 }
 
 
-function RegisterScreen() {
+function RegisterScreen({navigation}) {
   // TODO: add google login
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
