@@ -129,7 +129,7 @@ function MainNavigator() {
         barStyle={{
           backgroundColor: `${themecolor}`,
         }}
-        // shifting={true}
+        shifting={false}
       >
         <Main.Screen
           name="Dashboard"
@@ -139,11 +139,9 @@ function MainNavigator() {
               <MaterialCommunityIcons
                 name="view-dashboard-variant"
                 size={26}
-                // color={focused ? tabcolor : inactiveColor}
+                color={focused ? tabcolor : inactiveColor}
               />
             ),
-            tabBarActiveTintColor: "tomato",
-            tabBarInactiveTintColor: "gray",
           }}
         />
         <Main.Screen

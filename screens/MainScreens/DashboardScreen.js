@@ -40,7 +40,6 @@ const DashboardScreen = () => {
 
   const Category = ({ title }) => (
     <View>
-      {/* basically just get food based on preferences */}
       <Text style={styles.category}>{title}</Text>
       {/* TODO: Make this redirect to recipescreen with the necessary information needed */}
       <TouchableOpacity activeOpacity={1}>
