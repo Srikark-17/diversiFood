@@ -11,6 +11,7 @@ import {
   widthPercentageToDP as WP,
   heightPercentageToDP as HP,
 } from "react-native-responsive-screen";
+import * as Linking from 'expo-linking';
 
 const RecipeScreen = ({route, navigation}) => {
   // TODO: Replace all of this information with information from the Tasty API
@@ -41,32 +42,38 @@ const RecipeScreen = ({route, navigation}) => {
     <View style={styles.container}>
       <Image
         source={{
-          uri: "https://www.kitchenfrau.com/wp-content/uploads/2022/10/IMG_6989e-scaled.jpg",
+          uri: "https://img.buzzfeed.com/thumbnailer-prod-us-east-1/video-api/assets/228413.jpg",
         }}
         style={styles.image}
       />
       <View style={styles.alignment}>
-        <Text style={styles.heading}>Moroccan Carrot Salad with Oranges</Text>
+        <Text style={styles.heading}>Popcorn Snack Bars</Text>
+        <Text></Text>
+        <Text></Text>
+        <Text onPress={() => Linking.openURL("https://vid.tasty.co/output/140665/hls24_1564523855.m3u8")}>Demo Video</Text>
       </View>
       <View style={styles.line} />
       <ScrollView style={styles.scroll}>
         <View style={styles.subcontainer}>
           <Text style={styles.category}>Items</Text>
-          <Text style={styles.item}>• Carrots</Text>
-          <Text style={styles.item}>• Cumin/Cinnamon</Text>
-          <Text style={styles.item}>• Oranges/Lemons</Text>
-          <Text style={styles.item}>• Honey</Text>
+          <Text style={styles.item}>• 6 Cups Popcorn</Text>
+          <Text style={styles.item}>• 1 Cup Raw Almonds</Text>
+          <Text style={styles.item}>• 1 Cup Dried Cranberry</Text>
+          <Text style={styles.item}>• 1 Tablespoon Cinnamon</Text>
+          <Text style={styles.item}>• 3/4 Cup Honey</Text>
         </View>
+        
         <View style={styles.subcontainer}>
           <Text style={styles.category}>Directions</Text>
-          <Text style={styles.item}>• Shred carrots after scrubbing them well</Text>
-          <Text style={styles.item}>• Create a fresh dressing using honey and squeezed lemons/oranges and cumin</Text>
+          <Text style={styles.item}>• Boil water for 20 minutes</Text>
+          <Text style={styles.item}>• Cool water for 10 minutes</Text>
           <Text style={styles.item}>• Eat and enjoy!</Text>
         </View>
+        
       </ScrollView>
 
       {/* TODO: Redirect to Dashboard */}
-      <TouchableOpacity activeOpacity={1}>
+      <TouchableOpacity activeOpacity={1} >
         <View style={styles.submitButton}>
           <Text style={styles.submitButtonText}>Done</Text>
         </View>
@@ -130,7 +137,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     width: WP(80),
     alignItems: "center",
-    bottom: HP(5),
+    
     justifyContent: "center",
     left: WP(10),
   },

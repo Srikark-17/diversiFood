@@ -14,10 +14,10 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
-const user = firebase.auth().currentUser;
+const user = firebase.auth().currentUser; 
 
 const ProfileScreen = () => {
-  const [displayName, setDisplayName] = useState();
+  const [displayName, setDisplayName] = useState("Om Joshi");
   // TODO: replace all hard-coded information with user information
   return (
     <View style={styles.container}>
@@ -29,9 +29,9 @@ const ProfileScreen = () => {
           style={styles.userProfilePhoto}
         />
         <View style={styles.textContainer}>
-        {(user.displayName ? <Text style={styles.username}>{user.displayName}</Text> : "error")}
+        <Text style={styles.username}>Om Joshi</Text>
           <Text style={styles.username}></Text>
-        {(user.email ? <Text style={styles.username}>{user.email}</Text> : "error")}
+        <Text style={styles.username}>joshiom28@gmail.com</Text>
         </View>
       </View>
       <View>

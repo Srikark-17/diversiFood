@@ -4,6 +4,7 @@ import {
   View,
   StatusBar,
   TouchableOpacity,
+  Button
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import {
@@ -13,6 +14,7 @@ import {
 import LongCard from "../../components/LongCard";
 
 const ResultsScreen = ({ name, description, image, prepTime, route, navigation }) => {
+  const [data, setData] = useState();
   const {concatenatedString} = route.params;
   console.log('concatenated strings')
   console.log(concatenatedString)
@@ -35,7 +37,34 @@ const ResultsScreen = ({ name, description, image, prepTime, route, navigation }
       .then(response => response.text())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
+
+      var myHeaders2 = new Headers();
+      myHeaders2.append("X-RapidAPI-Key", "bb7546689emsh7a73aa4a8d1f5aep1dc21bjsn9fe4f6ac5ef2");
+      myHeaders2.append("X-RapidAPI-Host", "tasty.p.rapidapi.com");
+      
+      var requestOptions2 = {
+        method: 'GET',
+        headers: myHeaders2,
+        redirect: 'follow'
+      };
+      
+      fetch("https://tasty.p.rapidapi.com/tags/list?tomato?banana?carrots?orange?apple", requestOptions2)
+        .then(response => response.text())
+        .then(result => useState(result))
+        .catch(error => console.log('error', error))
+      
   }, [])
+
+  // const Cards = () => {
+  //   return <LongCard
+  //       name={"Chicken Soup"}
+  //       description={"Noodles with Chicken"}
+  //       image={
+  //         "https://plus.unsplash.com/premium_photo-1674654419438-3720f0b71087?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+  //       }
+  //       prepTime={"2 hrs"}
+  //     />
+  // } 
 
   return (
     <View style={styles.container}>
@@ -43,13 +72,33 @@ const ResultsScreen = ({ name, description, image, prepTime, route, navigation }
       <View style={styles.alignment}>
         <Text style={styles.heading}>Results</Text>
       </View>
+      
+      {/* <FlatList
+        data={data}
+        renderItem={({ item }) => <Cards title={item.name}  image={item.thumbnail_url} data={item} country={item.country} id={item.id}/>} //  description={item.item.compilations[0].description} 
+        keyExtractor={(item) => item.show_id}
+        style={{ width: WP(96), left: WP(4) }}
+      /> */}
+      <TouchableOpacity onPress={() => navigation.navigate('Recipe', {
+          recipeData: ""
+        })}>
+        <LongCard
+          name={"Moroccan Carrot Salad with Oranges"}
+          description={"The Moroccan carrot salad is a delightful side dish complementing many other meals."}
+          image={
+            "https://www.kitchenfrau.com/wp-content/uploads/2022/10/IMG_6989e-scaled.jpg"
+          }
+          prepTime={"1 hrs"}
+        />
+      </TouchableOpacity>
       <LongCard
-        name={"Chicken Soup"}
-        description={"Noodles with Chicken"}
+        name={"Apple Banana Carrot Smoothie"}
+        description={"A phenomenal source of potassium and fiber with a low amount of calories."}
         image={
-          "https://plus.unsplash.com/premium_photo-1674654419438-3720f0b71087?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+          "https://weekendatthecottage.com/wp-content/uploads/2020/01/ABCSmoothie10.jpg"
         }
-        prepTime={"2 hrs"}
+        prepTime={"30 min"}
+        
       />
     </View>
   );

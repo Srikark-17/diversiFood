@@ -4,12 +4,14 @@ import {
   widthPercentageToDP as WP,
   heightPercentageToDP as HP,
 } from "react-native-responsive-screen";
+import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const LongCard = ({ name, description, image, prepTime }) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.foodContainer}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('Recipe')}>
         <View style={styles.individualFoodContainer}>
           <Image
             source={{

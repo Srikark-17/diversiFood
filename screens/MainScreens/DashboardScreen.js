@@ -13,9 +13,20 @@ import {
   heightPercentageToDP as HP,
 } from "react-native-responsive-screen";
 import { FontAwesome } from "@expo/vector-icons";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import Firebasekeys from "./../../config";
+let firebaseConfig = Firebasekeys;
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
-const DashboardScreen = () => {
+const user = firebase.auth().currentUser;
+
+const DashboardScreen = ({navigation}) => {
   const [recommendations, setRecommendations] = useState();
+  const [vegetarian, setVegetarian] = useState(true);
+  
 
   const data = [
     {
@@ -41,6 +52,15 @@ const DashboardScreen = () => {
   ];
 
   useEffect(() => {
+    var query = firebase.firestore().collection('Preferences').where("value", "==", "Vegetarian");
+
+      console.log('query value')
+      console.log(query)
+      if (query.length > 0) {
+        setVegetarian(true)
+      }else{
+        setVegetarian(false)
+      }
     const options = {
       method: 'GET',
       headers: {
@@ -49,7 +69,7 @@ const DashboardScreen = () => {
       }
     };
     
-    fetch('https://tasty.p.rapidapi.com/feeds/list?size=5&timezone=%2B0700&vegetarian=false&peanut=false&from=0', options)
+    fetch(`https://tasty.p.rapidapi.com/feeds/list?size=5&timezone=%2B0700&vegetarian=${vegetarian}&peanut=false&from=0`, options)
       .then(response => response.json())
       .then((data) => {
         console.log('before')
@@ -58,14 +78,18 @@ const DashboardScreen = () => {
         console.log(data.results[0].item.compilations[0])
       })
       .catch(err => console.error(err));
+
+      
   }, [])
   const Category = ({ title, description, image, country, id }) => (
     <View onPress={() => navigation.navigate("Recipe", {
       recipeData: id,
     })}>
-      <Text style={styles.category}>{title}</Text>
+      <Text style={styles.category} onPress={() => navigation.navigate("Results Dashboard", {
+      recipeData: id
+      })}>{title}</Text> 
       {/* TODO: Make this redirect to recipescreen with the necessary information needed */}
-      <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate("Recipe", {
+      <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate("Results Dashboard", {
           recipeData: id,
         })}>
         <Card
@@ -87,7 +111,7 @@ const DashboardScreen = () => {
       </View>
       <FlatList
         data={recommendations}
-        renderItem={({ item }) => <Category title={item.name}  image={item.thumbnail_url} data={item} country={item.country} />} //  description={item.item.compilations[0].description} 
+        renderItem={({ item }) => <Category title={item.name}  image={item.thumbnail_url} data={item} country={item.country} id={item.id}/>} //  description={item.item.compilations[0].description} 
         keyExtractor={(item) => item.show_id}
         style={{ width: WP(96), left: WP(4) }}
       />

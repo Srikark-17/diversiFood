@@ -11,6 +11,14 @@ import ProfileScreen from "./screens/MainScreens/ProfileScreen";
 import ResultsScreen from "./screens/MainScreens/ResultsScreen";
 import RecipeScreen from "./screens/MainScreens/RecipeScreen";
 import CameraScreen from "./screens/MainScreens/CameraScreen";
+import ResultsScreenDashboard from './screens/MainScreens/ResultsScreenDashboard';
+import { LogBox } from 'react-native';
+
+// Ignore log notification by message
+LogBox.ignoreLogs(['Warning: ...']);
+
+//Ignore all log notifications
+LogBox.ignoreAllLogs();
 
 import {
   MaterialCommunityIcons,
@@ -144,7 +152,13 @@ const DashboardNavigator = () => {
           headerBackTitleVisible: false,
         }}
       />
-      
+      <Dashboard.Screen
+        name="Results Dashboard"
+        component={ResultsScreenDashboard}
+        options={{
+          headerBackTitleVisible: false,
+        }}
+      />
     </Dashboard.Navigator>
   );
 };
@@ -258,3 +272,4 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+console.log.disableYellowBox = true
