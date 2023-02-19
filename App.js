@@ -41,9 +41,9 @@ const Dashboard = createStackNavigator();
 const OCRRecognition = createStackNavigator();
 const Profile = createStackNavigator();
 
-const inactiveColor = "#fff";
+const inactiveColor = "#ededed";
 const themecolor = "#E35F21";
-const tabcolor = "#000";
+const tabcolor = "#fff";
 
 const ProfileNavigator = () => {
   return (
@@ -90,6 +90,7 @@ const OCRRecognitionNavigator = () => {
         name="OCR"
         component={CameraScreen}
         options={{
+          title: "Take A Picture Of Your Ingredients",
           headerBackTitleVisible: false,
         }}
       />
@@ -134,12 +135,13 @@ function MainNavigator() {
         barStyle={{
           backgroundColor: `${themecolor}`,
         }}
-        shifting={false}
+        shifting={true}
       >
         <Main.Screen
           name="Dashboard Navigator"
           component={DashboardNavigator}
           options={{
+            title: "Dashboard",
             tabBarIcon: ({ focused }) => (
               <MaterialCommunityIcons
                 name="view-dashboard-variant"
@@ -153,10 +155,11 @@ function MainNavigator() {
           name="Camera"
           component={OCRRecognitionNavigator}
           options={{
+            title: "Camera",
             tabBarIcon: ({ focused }) => (
               <FontAwesome5
                 name="camera"
-                size={26}
+                size={24}
                 color={focused ? tabcolor : inactiveColor}
               />
             ),
@@ -166,6 +169,7 @@ function MainNavigator() {
           name="Profile Navigator"
           component={ProfileNavigator}
           options={{
+            title: "Profile",
             tabBarIcon: ({ focused }) => (
               <Ionicons
                 name="settings"

@@ -6,12 +6,20 @@ import {
   widthPercentageToDP as WP,
   heightPercentageToDP as HP,
 } from "react-native-responsive-screen";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import Firebasekeys from "./../../config";
+let firebaseConfig = Firebasekeys;
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
+const user = firebase.auth().currentUser;
 
 const ProfileScreen = () => {
   // TODO: replace all hard-coded information with user information
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Profile</Text>
       <View style={styles.personalInfoContainer}>
         <Image
           source={{
@@ -20,12 +28,29 @@ const ProfileScreen = () => {
           style={styles.userProfilePhoto}
         />
         <View style={styles.textContainer}>
-          <Text style={styles.username}>John Doe</Text>
+          <Text style={styles.username}>{user.displayName}</Text>
+        </View>
+      </View>
+      <View style={styles.personalInfoContainer}>
+        <Image
+          source={{
+            uri: "https://www.croptecshow.com/wp-content/uploads/2017/04/guest-avatar-250x250px.png",
+          }}
+          style={styles.userProfilePhoto}
+        />
+        <View style={styles.textContainer}>
+          <Text style={styles.username}>{user.email}</Text>
         </View>
       </View>
       <View>
         <View style={styles.profileSection}>
-          <TouchableOpacity activeOpacity={1}>
+          <TouchableOpacity activeOpacity={1} onPress={() => {
+            firebase.auth().signOut().then(() => {
+              // Sign-out successful.
+            }).catch((error) => {
+              // An error happened.
+            });
+          }}>
             <View style={styles.leftProfileSection}>
               <AntDesign name="logout" size={23} style={styles.icon} />
               <Text style={styles.profileSectionText}>Sign out</Text>
@@ -42,12 +67,6 @@ export default ProfileScreen;
 const styles = StyleSheet.create({
   container: {
     marginLeft: WP(4.83),
-    marginTop: HP(5.58),
-  },
-  title: {
-    fontWeight: "700",
-    fontSize: HP(3.13),
-    top: HP(2.23),
   },
   personalInfoContainer: {
     backgroundColor: "#E35F21",
@@ -56,7 +75,7 @@ const styles = StyleSheet.create({
     height: HP(11.12),
 
     flexDirection: "row",
-    marginTop: HP(5.58),
+    marginTop: HP(3.58),
   },
   userProfilePhoto: {
     width: WP(14.49),
