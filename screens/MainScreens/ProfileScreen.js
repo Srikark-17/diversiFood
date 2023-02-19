@@ -29,16 +29,7 @@ const ProfileScreen = () => {
         />
         <View style={styles.textContainer}>
           <Text style={styles.username}>{user.displayName}</Text>
-        </View>
-      </View>
-      <View style={styles.personalInfoContainer}>
-        <Image
-          source={{
-            uri: "https://www.croptecshow.com/wp-content/uploads/2017/04/guest-avatar-250x250px.png",
-          }}
-          style={styles.userProfilePhoto}
-        />
-        <View style={styles.textContainer}>
+          <Text style={styles.username}></Text>
           <Text style={styles.username}>{user.email}</Text>
         </View>
       </View>
